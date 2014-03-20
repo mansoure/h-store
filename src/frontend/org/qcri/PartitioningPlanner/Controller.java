@@ -228,6 +228,7 @@ public class Controller implements Runnable {
 
 		} catch(Exception e) {
 			System.out.println("Caught on exception " + e.toString());
+			e.printStackTrace();
 		}
 	}
 
