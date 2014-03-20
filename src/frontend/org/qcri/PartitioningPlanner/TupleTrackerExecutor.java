@@ -119,14 +119,12 @@ public void turnOnOff(int seconds, org.voltdb.client.Client client) throws Excep
 			
 			reader = new BufferedReader(new FileReader(fNPrefix+i+".del"));
 			hotTuples = new HashMap<Long, Long>();
-			line = reader.readLine(); // escape first line
+			line = reader.readLine(); // escape first line; K= 
+			line = reader.readLine(); // escape 2nd line; column description 
 			
 			while ((line = reader.readLine()) != null) {
 				
-				if(line.contains("Table Name") )// escape line
-					continue;
-				
-	            String parts[] = line.split("\t");
+				String parts[] = line.split("\t");
 	            hotTuples.put(Long.parseLong(parts[1]), Long.parseLong(parts[2]));
 	        }
 			reader.close();
