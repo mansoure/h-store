@@ -275,11 +275,13 @@ void TupleTrackerManager::getTopKPerPart(int k){
 	HTfile.open (fileName.c_str());
 
 	std::vector<TupleTrackingInfo>::const_iterator iter = v_tupleTrackingInfo.begin();
-	int ratio = 100; // %1
+	//int ratio = 100; // 1%
+	//int ratio = 200; // 0.5%
+	int ratio = 50; // 2%
 	long int kk = (v_tupleTrackingInfo.size()/ratio + (v_tupleTrackingInfo.size() % ratio != 0)); // ceil (size * (1/ratio) )
 
     //header first line
-	//HTfile << " k = " << kk<<" of "<<v_tupleTrackingInfo.size()<<"\n";
+	HTfile << " k = " << kk<<" of "<<v_tupleTrackingInfo.size()<<"\n";
 	HTfile << " |Table Name";
 	HTfile << " |Tuple ID";
 	HTfile << " |Frequency|";
