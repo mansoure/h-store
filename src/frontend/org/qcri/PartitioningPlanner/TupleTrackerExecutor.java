@@ -122,6 +122,10 @@ public void turnOnOff(int seconds, org.voltdb.client.Client client) throws Excep
 			line = reader.readLine(); // escape first line
 			
 			while ((line = reader.readLine()) != null) {
+				
+				if(line.contains("Table Name") )// escape line
+					continue;
+				
 	            String parts[] = line.split("\t");
 	            hotTuples.put(Long.parseLong(parts[1]), Long.parseLong(parts[2]));
 	        }
