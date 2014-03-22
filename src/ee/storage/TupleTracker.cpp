@@ -276,8 +276,8 @@ void TupleTrackerManager::getTopKPerPart(int k){
 
 	std::vector<TupleTrackingInfo>::const_iterator iter = v_tupleTrackingInfo.begin();
 	//int ratio = 100; // 1%
-	//int ratio = 200; // 0.5%
-	int ratio = 50; // 2%
+	int ratio = 200; // 0.5%
+	//int ratio = 50; // 2%
 	long int kk = (v_tupleTrackingInfo.size()/ratio + (v_tupleTrackingInfo.size() % ratio != 0)); // ceil (size * (1/ratio) )
 
     //header first line
