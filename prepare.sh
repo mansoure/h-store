@@ -3,7 +3,7 @@
 
 if [ $# -lt 4 ]
 then
-	echo "Allocates partitions starting from server da${init_server}"
+	echo "Allocates partitions starting from server ds${init_server}"
 	echo "Parameters"
 	echo "1) benchmark type (e.g. tpcc, ycsb)"
 	echo "2) initial server"
@@ -34,9 +34,9 @@ do
 	else
 		if [ "$curr_server" -lt "10" ]
 		then
-			cmd="${cmd}${first_loop}da0${curr_server}:${curr_host}:${curr_part}-${end_part}"
+			cmd="${cmd}${first_loop}ds0${curr_server}:${curr_host}:${curr_part}-${end_part}"
 		else
-			cmd="${cmd}${first_loop}da${curr_server}:${curr_host}:${curr_part}-${end_part}"
+			cmd="${cmd}${first_loop}ds${curr_server}:${curr_host}:${curr_part}-${end_part}"
 		fi
 		curr_part=`expr $curr_part + $part_per_server`
 		curr_host=`expr $curr_host + 1`
