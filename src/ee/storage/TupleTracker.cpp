@@ -154,10 +154,11 @@ int64_t TupleTrackerManager::getPrimaryKey(std::string tableName, uint32_t tuple
 }
 
 void TupleTrackerManager::insertTuple(int64_t txnId, std::string tableName, uint32_t tupleId){
-	   //*/
 
+	/*/
 	if(	tableName != "WAREHOUSE")
 			return; // tracks only warehouse.
+	//*/
 
 
 	    Accesses* access = NULL;
