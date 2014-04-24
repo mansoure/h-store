@@ -202,7 +202,20 @@ void TupleTrackerManager::eraseTupleTrackingInfo(){
 
 	    v_tupleTrackingInfo.clear();
 
-	    m_tableAccesses.clear();
+	    Map_TupleIdAccesses* i_m_tIDAcc;
+	    boost::unordered_map<std::string, Map_TupleIdAccesses*>::const_iterator it_mtable;
+	    boost::unordered_map<uint32_t, Accesses*>::const_iterator it_accesses;
+	    for ( it_mtable = m_tableAccesses.begin(); it_mtable != m_tableAccesses.end(); ++it_mtable ) {
+
+	    	i_m_tIDAcc = it_mtable->second;
+	    	for ( it_accesses = i_m_tIDAcc->begin(); it_accesses != i_m_tIDAcc->end(); ++it_accesses ) {
+	    		delete it_accesses->second;
+	    	}
+	            delete it_mtable->second;
+	        }
+	     m_tableAccesses.clear();
+
+
 
 	    summedAccessFreq = 0;
 
