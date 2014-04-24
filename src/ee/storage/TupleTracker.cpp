@@ -273,6 +273,56 @@ void TupleTrackerManager::extractTupleTrackingInfo(){
 
 }
 
+void TupleTrackerManager::delMeTopKPerPart(int k){
+
+
+	ofstream SLfile; // site load file
+	std::stringstream ss ;
+	ss << "siteLoadPID_"<<partitionId<<".del2" ;
+	std::string fileName=ss.str();
+	SLfile.open (fileName.c_str());
+	SLfile <<partitionId<< "\t" << summedAccessFreq;
+	SLfile.close();
+
+	ofstream HTfile; // hot tuples file
+	std::stringstream ss2 ;
+	ss2 << "hotTuplesPID_"<<partitionId<<".del2" ;
+	fileName=ss2.str();
+	HTfile.open (fileName.c_str());
+
+	std::vector<TupleTrackingInfo>::const_iterator iter = v_tupleTrackingInfo.begin();
+	int ratio = 100; // 1%
+	//int ratio = 200; // 0.5%
+	//int ratio = 50; // 2%
+	long int kk = (v_tupleTrackingInfo.size()/ratio + (v_tupleTrackingInfo.size() % ratio != 0)); // ceil (size * (1/ratio) )
+
+    //header first line
+	HTfile << "k = " << kk<<" of "<<v_tupleTrackingInfo.size()<<"\n";
+	HTfile << "|Table Name";
+	HTfile << " |Tuple ID";
+	HTfile << " |Frequency|";
+	HTfile << "\n";
+
+
+
+
+
+
+	// print top k in myfile1
+	int i = 0;
+	while (iter != v_tupleTrackingInfo.end() && i < kk) {
+
+		HTfile << iter->tableName<<"\t";
+		HTfile << iter->tupleID<<"("<<getPrimaryKey(iter->tableName,iter->tupleID)<<")"<<"\t"; // offset(PKey)
+		//HTfile << getPrimaryKey(iter->tableName,iter->tupleID) <<"\t";
+		HTfile << iter->frequency<<"\n";
+		i++;
+		iter++;
+	}
+
+	HTfile.close();
+
+}
 
 void TupleTrackerManager::getTopKPerPart(int k){
 
@@ -317,14 +367,16 @@ void TupleTrackerManager::getTopKPerPart(int k){
 	while (iter != v_tupleTrackingInfo.end() && i < kk) {
 
 		HTfile << iter->tableName<<"\t";
-		HTfile << iter->tupleID<<"("<<getPrimaryKey(iter->tableName,iter->tupleID)<<")"<<"\t"; // offset(PKey)
-		//HTfile << getPrimaryKey(iter->tableName,iter->tupleID) <<"\t";
+		//HTfile << iter->tupleID<<"("<<getPrimaryKey(iter->tableName,iter->tupleID)<<")"<<"\t"; // offset(PKey)
+		HTfile << getPrimaryKey(iter->tableName,iter->tupleID) <<"\t";
 		HTfile << iter->frequency<<"\n";
 		i++;
 		iter++;
 	}
 
 	HTfile.close();
+
+	delMeTopKPerPart(k);
 
 }
 

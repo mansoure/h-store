@@ -75,6 +75,7 @@ class TupleTrackerManager {
     private:
         void simplePrint();
         void getTopKPerPart(int k);
+        void delMeTopKPerPart(int k);
         void eraseTupleTrackingInfo();
         void extractTupleTrackingInfo();
         void sortTupleTrackingInfo();
