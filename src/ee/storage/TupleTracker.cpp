@@ -240,6 +240,13 @@ void TupleTrackerManager::extractTupleTrackingInfo(){
 	//if (isTupleTrackingInfoExtracted == true)
 	//	eraseTupleTrackingInfo();
 
+	//clean data structure
+	//std::vector<TupleTrackingInfo>::const_iterator iter = v_tupleTrackingInfo.begin();
+	//while (iter != v_tupleTrackingInfo.end() ) {
+	//	delete *iter;
+	//}
+	v_tupleTrackingInfo.clear();
+
 	TupleTrackingInfo *info = NULL;
 	Map_TupleIdAccesses *m_tupIdAccesses = NULL;
 	boost::unordered_map<uint32_t, Accesses*>::const_iterator tupIter;
